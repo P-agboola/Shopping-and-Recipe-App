@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../../models/recipe';
-import { Ingredients } from 'src/app/models/ingredient';
+import { Ingredients } from '../../models/ingredient';
 import { ShoppingService } from '../shopping/shopping.service';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class RecipesService {
   constructor(private shoppingService: ShoppingService) {}
+  recipesChanged = new Subject<Recipe[]>();
 
   private recipes: Recipe[] = [
     new Recipe(
-      'Test chiken Recipe',
-      'sample of Test chiken Recipe',
+      'Test Chicken Recipe',
+      'sample of Test Chicken Recipe',
       'https://panlasangpinoy.com/wp-content/uploads/2023/03/Butter-garlic-fried-chicken-recipe.jpg',
       [new Ingredients('chiken', 5), new Ingredients('curry', 2)]
     ),
@@ -32,5 +34,19 @@ export class RecipesService {
 
   addIngredientsToShoppingList(ingredient: Ingredients[]) {
     this.shoppingService.addIngredients(ingredient);
+  }
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  updateRecipe(id: number, newRecipe: Recipe) {
+    this.recipes[id] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  deleteRecipe(id: number) {
+    this.recipes.splice(id, 1);
+    this.recipesChanged.next(this.recipes.slice());
   }
 }

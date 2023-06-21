@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipeListComponent } from './recipe-components/recipe-list/recipe-list.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { RecipeItemComponent } from './recipe-components/recipe-item/recipe-item.component';
@@ -31,7 +31,7 @@ import { RecipeEditComponent } from './recipe-components/recipe-edit/recipe-edit
     RecipeStarterComponent,
     RecipeEditComponent,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, ReactiveFormsModule],
   providers: [RecipesService, ShoppingService],
   bootstrap: [AppComponent],
 })
