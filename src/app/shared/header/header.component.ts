@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiDataService } from '../../services/api-data.service';
 
 @Component({
   selector: 'app-header',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   collapsed = true;
- 
- 
+  constructor(private apiDataService: ApiDataService) {}
+
+  onSaveRecipe() {
+    this.apiDataService.storeRecipes();
+  }
+
+  onFetchRecipes() {
+    this.apiDataService.fetchRecipes().subscribe();
+  }
 }
